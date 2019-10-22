@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <body>
+    <article>
+ 
+    </article>
+    <input type="button" value="fetch" onclick="
+      fetch('http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?serviceKey=e0%2BAk2r1HN6uoNO9EdA1Q0tcRJ5G4xLhNOVRDKL5aFgnu2L0%2BypiHgaZ0CjPctzJF%2BtjWNX5cIOMUVWRe7pvQA%3D%3D&base_date=20191007&base_time=0500&nx=60&ny=127&numOfRows=10&pageNo=1&_type=json').then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      })
+    ">
+  </body>
+</html>

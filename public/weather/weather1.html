@@ -1,0 +1,37 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- <script src="./weathertest.js"></script> -->
+<!-- <script type="text/javascript">
+    realTimeWeather();
+</script> -->
+<script>
+
+fetch('http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?serviceKey=9JTXJ93nTOvhmC0GV2r4OGW0Gd02WfFG4czz2PWIpTVifr5kYDRzMUBz7wS7jFLaZUgnI1N4m6NVTrH5aKSwTw%3D%3D&base_date=20191007&base_time=0500&nx=60&ny=127&numOfRows=10&pageNo=1&_type=json').then(response=>response.text()).then(data => console.log(data));
+
+</script>
+</head>
+<body>
+    <h1>hello</h1>
+    <div class="vis-weather">
+        <!-- <h2 class="vh_hide">날씨정보</h2>
+        <p class="weather-date"></p>
+        <ul>
+            <li class="weather-temp"></li>
+            <li id="RN1">시간당강수량 : ?</li>
+            <li class="weather-state-text"></li>
+        </ul> -->
+    </div>
+    <article>
+
+    </article>
+   
+</body>
+</html>

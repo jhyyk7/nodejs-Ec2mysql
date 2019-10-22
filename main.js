@@ -1,68 +1,66 @@
 var express = require('express');
 var app = express();
+var cors = require('cors')
 var helmet = require ('helmet')
-var topic = require ('./lib/topic');
+var path = require('path')
+var fetch=require('node-fetch')
+
 var bodyParser = require ('body-parser');
 var compression = require ('compression');
 var template = require ('./lib/template');
-var author = require('./lib/author');
+
 var indexRouter = require('./routes/index')
 var topicRouter = require('./routes/topic')
 var authorRouter = require('./routes/author')
+var weatherRouter = require('./routes/weather')
 
+// var whitelist = ['http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?serviceKey=e0%2BAk2r1HN6uoNO9EdA1Q0tcRJ5G4xLhNOVRDKL5aFgnu2L0%2BypiHgaZ0CjPctzJF%2BtjWNX5cIOMUVWRe7pvQA%3D%3D&base_date=20191007&base_time=0500&nx=60&ny=127&numOfRows=10&pageNo=1&_type=jsonr', 'http://helo.kma.go.kr']
+// var corsOptions = {
 
-//TODO: refacntory source code using to make middleware
+//   origin: function(origin, callback){
+
+//   var isWhitelisted = whitelist.indexOf(origin) !== -1;
+
+//   callback(null, isWhitelisted); 
+
+//   // callback expects two parameters: error and options 
+
+//   },
+
+//   credentials:true
+
+// }
+
+// app.set('port', 8080);
+app.use(cors());
 app.post('*', bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
 app.get('*', template.infoTopic);
 app.use(express.static('public'));
 app.use('*',template.infoAuthor);
+// app.use( cors(corsOptions) );  
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+
 
 app.use('/', indexRouter)
 app.use('/topic', topicRouter)
 app.use('/author', authorRouter)
+app.use('/weather',weatherRouter);
 
-// app.get('/', function(request, response){
-//   topic.Home(request, response);   
-// });
-// app.get('/author', function (request, response){
-//   author.author_Home(request, response);
-// })
-// app.get('/author/create', function(request, response){
-//   author.author_Create(request, response);
-// });
-// app.post('/author/create_process', function(request, response){
-//   author.author_Create_process(request, response);
-// });
-// app.get('/author/update/:pageId', function(request, response){
-//   author.author_Update(request, response);
-// });
-// app.post('/author/update_process', function(request, response){
-//   author.author_Update_process(request, response);
-// })
-// app.post('/author/delete_process', function(request, response){
-//   author.author_Delete_process(request, response);
-// })
+app.get('/testweather',function(request, response){
+  
+  response.sendfile(path.join('weather1.html'))
+})
 
-// app.get('/page/:pageId', function(request, response){
-//   topic.Page(request, response);
-// });
-// app.get('/create', function(request, response){
-//   topic.create(request, response);
-// });
-// app.post('/create_process', function(request, response){
-//   topic.create_process(request, response);
-// });
-// app.get('/update/:pageId', function(request, response){
-//   topic.update(request, response);
-// });
-// app.post('/update_process', function(request, response){
-//   topic.update_process(request, response);
-// })
-// app.post('/delete_process', function(request, response){
-//   topic.delete_process(request, response);
-// })
+
+
 app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
   });
@@ -71,4 +69,5 @@ app.use(function(err, req, res, next) { //TODO: 아직 미완성 , 여러개의 
   res.status(500).send('Something broke!');
 });
 
+// app.listen(app.get('port'));
 app.listen(3000);

@@ -20,3 +20,5 @@ var author=require('../lib/author')
   router.post('/delete_process', function(request, response){
     author.author_Delete_process(request, response);
   })
+
+  module.exports=router;
